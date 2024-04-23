@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :admins
+  devise_for :admins, skip: [:registrations]
   root to: "employees#index"
 
   # WebpackerがビルドしたJavaScriptファイルにアクセスするための適切なルートを設定

@@ -43,6 +43,7 @@ group :development do
   gem 'syntax_tree'
   gem 'syntax_tree-haml'
   gem 'syntax_tree-rbs'
+  gem 'htmlbeautifier'
 end
 
 group :test do
@@ -58,4 +59,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'pry-rails'
 gem 'devise'
 gem 'devise-bootstrap5'
-
+gem 'happybirthday'

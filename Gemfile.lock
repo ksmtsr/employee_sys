@@ -97,6 +97,8 @@ GEM
       temple (>= 0.8.2)
       thor
       tilt
+    happybirthday (1.0.0)
+    htmlbeautifier (1.4.3)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.5)
@@ -258,6 +260,8 @@ DEPENDENCIES
   capybara (>= 3.26)
   devise
   devise-bootstrap5
+  happybirthday
+  htmlbeautifier
   jbuilder (~> 2.7)
   pg (~> 1.1)
   prettier_print

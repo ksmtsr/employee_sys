@@ -1,13 +1,35 @@
 class EmployeesController < ApplicationController
 
+  require 'happybirthday'
+
   def index
+    @employees = Employee.all
+    @employees.each do |employee|
+      birthday = Happybirthday.born_on(employee.birthday)
+      employee.age = birthday.age.years_old
+    end
   end
 
-  def def new
+  def new
     @employee = Employee.new
   end
-  
 
+  def create
+    @employee = Employee.new(employee_params)
+    employee.save
+    redirect_to :root_path
+  end
+
+  def destroy
+
+  end
+
+  def destroy_all
+
+  end
+
+  
+  
   private
 
   def employee_params

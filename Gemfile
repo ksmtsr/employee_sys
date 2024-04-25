@@ -62,3 +62,6 @@ gem 'devise-bootstrap5'
 gem 'happybirthday'
 gem 'pry-byebug'
 gem 'rails_admin', '~> 3.0'
+gem 'kaminari'
+
+

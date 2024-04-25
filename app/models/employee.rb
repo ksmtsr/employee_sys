@@ -1,6 +1,6 @@
 class Employee < ApplicationRecord
-    # has_many :documents, dependent: :destroy
-    has_many_attached :documents
+    has_many :documents, dependent: :destroy
+    
 
     def full_name
         self.last_name + self.first_name

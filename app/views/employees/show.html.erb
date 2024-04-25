@@ -1,44 +1,102 @@
 <div class="container">
-  <h1 class="mb-4">労働者名簿</h1>
-  <div class="col-md-8 mx-auto">
-    <div class="card">
-      <div class="card-body">
-        <table class="table table-bordered table-striped">
-          <tr>
-            <th class="w-25">氏名</th>
-            <td><%= @employee.full_name %></td>
-          </tr>
-          <tr>
-            <th>フリガナ</th>
-            <td><%= @employee.full_name_kana %></td>
-          </tr>
-          <tr>
-            <th>生年月日</th>
-            <td><%= @employee.birthday %></td>
-          </tr>
-          <tr>
-            <th>年齢</th>
-            <td><%= @employee.age %></td>
-          </tr>
-          <tr>
-            <th>郵便番号</th>
-            <td><%= @employee.postal_code %> <%= @employee.address %></td>
-          </tr>
-          <tr>
-            <th>電話番号</th>
-            <td><%= @employee.telephone_number %></td>
-          </tr>
-          <tr>
-            <th>入社日</th>
-            <td><%= @employee.start_date %></td>
-          </tr>
-          <tr>
-            <th>退社日</th>
-            <td><%= @employee.end_date %></td>
-          </tr>
-        </table>
-        <%= link_to "編集する", edit_employee_path, class: "btn btn-outline-info" %>
+  <h2 class="mb-4">労働者詳細</h2>
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-bordered table-striped">
+            <tr>
+              <th class="w-25">氏名</th>
+              <td><%= @employee.full_name %></td>
+            </tr>
+            <tr>
+              <th>フリガナ</th>
+              <td><%= @employee.full_name_kana %></td>
+            </tr>
+            <tr>
+              <th>生年月日</th>
+              <td><%= @employee.birthday %></td>
+            </tr>
+            <tr>
+              <th>年齢</th>
+              <td><%= @employee.age %></td>
+            </tr>
+            <tr>
+              <th>郵便番号</th>
+              <td><%= @employee.postal_code %> <%= @employee.address %></td>
+            </tr>
+            <tr>
+              <th>電話番号</th>
+              <td><%= @employee.telephone_number %></td>
+            </tr>
+            <tr>
+              <th>入社日</th>
+              <td><%= @employee.start_date %></td>
+            </tr>
+            <tr>
+              <th>退社日</th>
+              <td><%= @employee.end_date %></td>
+            </tr>
+          </table>
+          <%= link_to "編集する", edit_employee_path, class: "btn btn-outline-info" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <%= form_with(url: employee_documents_path(@employee), multipart: true) do |form| %>
+            <div class="form-group">
+              <%= form.file_field :files, multiple: true, class: "form-control form-control-sm", onchange: "addFileField(this)" %>
+            </div>
+            <div id="file_fields" class="form-group"></div>
+            <%= form.submit "アップロード", class: "btn btn-primary btn-block mt-2", style: "display: none;" %>
+          <% end %>
+          <% if @employee.documents.any? %>
+            <div class="mt-4">
+              <h2>アップロードされたファイル</h2>
+              <ul class="list-unstyled">
+                <% @employee.documents.each do |document| %>
+                  <li>
+                    <%= document.description %>:
+                    <% if document.files.attached? %>
+                      <%= link_to document.files.map(&:filename).join(', '), rails_blob_path(document.files.first), class: "text-decoration-none link-secondary" %>
+                      <%= link_to "削除", delete_document_path(document.id), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-decoration-none link-danger" %>
+                    <% else %>
+                      <span>ファイルがありません</span>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+  function addFileField(input) {
+    var files = input.files;
+    var fileFields = document.getElementById('file_fields');
+    var uploadButton = document.querySelector('[type="submit"]');
+
+    fileFields.innerHTML = '';
+
+    for (var i = 0; i < files.length; i++) {
+      var fileField = document.createElement('div');
+      fileField.className = 'file_field';
+      fileField.innerHTML = `
+        <label>ファイル説明</label>
+        <input type="text" name="descriptions[]" placeholder="${files[i].name}" class="form-control form-control-sm">
+        <input type="file" name="files[]" value="${files[i].name}" style="display: none;">
+        <span>${files[i].name}</span>`;
+      fileFields.appendChild(fileField);
+    }
+    uploadButton.style.display = files.length > 0 ? 'block' : 'none'; // ファイルが選択されたらアップロードボタンを表示
+  }
+
+  function removeFileField(element) {
+    element.parentNode.remove();
+  }
+</script>

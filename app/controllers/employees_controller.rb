@@ -8,7 +8,6 @@ class EmployeesController < ApplicationController
     logger.debug(@employees.inspect)
   end
   
-  
 
   def new
     @employee = Employee.new
@@ -23,21 +22,24 @@ class EmployeesController < ApplicationController
     end
   end
 
-  
-  
-  
 
   def show
     @employee = Employee.find(params[:id])
+    @documents = @employee.documents
+    @new_document = Document.new
   end
   
 
   def destroy
-
+    @employee = Employee.find(params[:id])
+    @employee.destroy
+    redirect_to root_path, notice: "削除しました"
   end
 
-  def destroy_all
 
+  def destroy_all
+    Employee.destroy_all
+    redirect_to root_path, notice: "削除しました"
   end
 
   

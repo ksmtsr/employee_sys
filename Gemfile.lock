@@ -293,6 +293,7 @@ DEPENDENCIES
   happybirthday
   htmlbeautifier
   jbuilder (~> 2.7)
+  kaminari
   pg (~> 1.1)
   prettier_print
   pry-byebug

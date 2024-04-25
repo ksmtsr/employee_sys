@@ -54,10 +54,10 @@
           <% end %>
           <% if @employee.documents.any? %>
             <div class="mt-4">
-              <h2>アップロードされたファイル</h2>
-              <ul class="list-unstyled">
-                <% @employee.documents.each do |document| %>
-                  <li>
+              <h3>アップロードされたファイル</h3>
+              <ul class="list-unstyled" id="document_list">
+                <% @documents.each_with_index do |document, index| %>
+                  <li style="<%= 'display: none;' if index >= 10 %>">
                     <%= document.description %>:
                     <% if document.files.attached? %>
                       <%= link_to document.files.map(&:filename).join(', '), rails_blob_path(document.files.first), class: "text-decoration-none link-secondary" %>
@@ -68,6 +68,9 @@
                   </li>
                 <% end %>
               </ul>
+              <% if @employee.documents.size > 10 %>
+                <%= link_to "さらに表示", "#", class: "btn btn-info mt-2", id: "more_documents_button" %>
+              <% end %>
             </div>
           <% end %>
         </div>
@@ -76,27 +79,17 @@
   </div>
 </div>
 <script>
-  function addFileField(input) {
-    var files = input.files;
-    var fileFields = document.getElementById('file_fields');
-    var uploadButton = document.querySelector('[type="submit"]');
+  document.addEventListener('DOMContentLoaded', function() {
+    var documentsList = document.getElementById('document_list');
+    var moreDocumentsButton = document.getElementById('more_documents_button');
 
-    fileFields.innerHTML = '';
-
-    for (var i = 0; i < files.length; i++) {
-      var fileField = document.createElement('div');
-      fileField.className = 'file_field';
-      fileField.innerHTML = `
-        <label>ファイル説明</label>
-        <input type="text" name="descriptions[]" placeholder="${files[i].name}" class="form-control form-control-sm">
-        <input type="file" name="files[]" value="${files[i].name}" style="display: none;">
-        <span>${files[i].name}</span>`;
-      fileFields.appendChild(fileField);
-    }
-    uploadButton.style.display = files.length > 0 ? 'block' : 'none'; // ファイルが選択されたらアップロードボタンを表示
-  }
-
-  function removeFileField(element) {
-    element.parentNode.remove();
-  }
+    moreDocumentsButton.addEventListener('click', function(event) {
+      event.preventDefault();
+      var documentsToShow = documentsList.children;
+      for (var i = 10; i < documentsToShow.length; i++) {
+        documentsToShow[i].style.display = 'block';
+      }
+      moreDocumentsButton.style.display = 'none';
+    });
+  });
 </script>

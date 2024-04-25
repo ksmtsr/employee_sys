@@ -1,0 +1,44 @@
+<div class="container">
+  <h1 class="mb-4">労働者名簿</h1>
+  <div class="col-md-8 mx-auto">
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <tr>
+            <th class="w-25">氏名</th>
+            <td><%= @employee.full_name %></td>
+          </tr>
+          <tr>
+            <th>フリガナ</th>
+            <td><%= @employee.full_name_kana %></td>
+          </tr>
+          <tr>
+            <th>生年月日</th>
+            <td><%= @employee.birthday %></td>
+          </tr>
+          <tr>
+            <th>年齢</th>
+            <td><%= @employee.age %></td>
+          </tr>
+          <tr>
+            <th>郵便番号</th>
+            <td><%= @employee.postal_code %> <%= @employee.address %></td>
+          </tr>
+          <tr>
+            <th>電話番号</th>
+            <td><%= @employee.telephone_number %></td>
+          </tr>
+          <tr>
+            <th>入社日</th>
+            <td><%= @employee.start_date %></td>
+          </tr>
+          <tr>
+            <th>退社日</th>
+            <td><%= @employee.end_date %></td>
+          </tr>
+        </table>
+        <%= link_to "編集する", edit_employee_path, class: "btn btn-outline-info" %>
+      </div>
+    </div>
+  </div>
+</div>

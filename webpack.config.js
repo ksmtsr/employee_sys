@@ -10,5 +10,8 @@ module.exports = {
       },
     ],
   },
-  node: {},
+  node: {
+    __dirname: true,
+    __filename: true,
+  },
 };

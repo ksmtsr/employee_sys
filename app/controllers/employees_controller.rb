@@ -3,12 +3,12 @@ class EmployeesController < ApplicationController
   require 'happybirthday'
 
   def index
+    @employee = Employee.new
     @employees = Employee.all
-    @employees.each do |employee|
-      birthday = Happybirthday.born_on(employee.birthday)
-      employee.age = birthday.age.years_old
-    end
+    logger.debug(@employees.inspect)
   end
+  
+  
 
   def new
     @employee = Employee.new
@@ -16,9 +16,21 @@ class EmployeesController < ApplicationController
 
   def create
     @employee = Employee.new(employee_params)
-    employee.save
-    redirect_to :root_path
+    if @employee.save 
+      redirect_to root_path
+    else 
+      render :new
+    end
   end
+
+  
+  
+  
+
+  def show
+    @employee = Employee.find(params[:id])
+  end
+  
 
   def destroy
 
@@ -32,8 +44,14 @@ class EmployeesController < ApplicationController
   
   private
 
-  def employee_params
-    params.require(:employee).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :birthday, :postal_code, :address, :telephone_number, :start_date, :end_date)
+  def calculate_age(birthday)
+    birthday = Happybirthday.born_on(birthday)
+    birthday.age.years_old
   end
+
+  def employee_params
+    params.require(:employee).permit(:first_name, :last_name, :first_name_kana, :last_name_kana, :birthday, :postal_code, :address, :telephone_number, :start_date, :end_date)
+  end
+  
 
 end

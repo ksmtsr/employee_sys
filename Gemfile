@@ -63,5 +63,5 @@ gem 'happybirthday'
 gem 'pry-byebug'
 gem 'rails_admin', '~> 3.0'
 gem 'kaminari'
-
+gem 'mutool', '~> 0.1.2'
 

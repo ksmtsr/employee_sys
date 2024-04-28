@@ -1,0 +1,102 @@
+<%= form_with model: @employee, local: true do |f| %>
+  <div class="form-group row">
+    <div class="col-sm-6">
+      <%= f.label :last_name,"姓" %>
+      <%= f.text_field :last_name, class: "form-control", required: true %>
+    </div>
+    <div class="col-sm-6">
+      <%= f.label :first_name,"名" %>
+      <%= f.text_field :first_name, class: "form-control", required: true %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-6">
+      <%= f.label :last_name_kana,"姓カナ" %>
+      <%= f.text_field :last_name_kana, class: "form-control", required: true %>
+    </div>
+    <div class="col-sm-6">
+      <%= f.label :first_name_kana,"名カナ" %>
+      <%= f.text_field :first_name_kana, class: "form-control", required: true %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :birthday,"生年月日" %>
+    <div class="row col-sm-10">
+      <%= f.date_select :birthday,
+            { use_month_numbers: true, start_year: (Time.now.year - 60),
+            end_year: (Time.now.year), default: nil,
+            prompt: { day: '日', month: '月', year: '年'},
+            include_blank: false, required: true
+            },
+            { class: "form-control mx-2", required: true, 
+            style: 'display: inline-block;width: auto;'
+            }
+        %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :postal_code,"郵便番号" %>
+    <div class="row">
+      <div class="col-3">
+        <%= f.text_field :postal_code, class: "form-control form-control-sm w10", required: true %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :address, "住所" %>
+      <%= f.text_field :address, class: "form-control", required: true %>
+    </div>
+    <%= f.label :address,"住所" %>
+    <%= f.text_field :address, id: "address", class: "form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :telephone_number,"電話番号" %>
+    <%= f.telephone_field :telephone_number, class: "form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :start_date, "入社日" %>
+    <div class="row col-sm-10">
+      <%= f.date_select :start_date,
+        {
+            use_month_numbers: true,
+            start_year: (Time.now.year - 20),
+            end_year: (Time.now.year + 5),
+            default: nil,
+            prompt: { day: '日', month: '月', year: '年'},
+            include_blank: false,
+        },
+        {
+            class: "form-control mx-2", 
+            style: 'display: inline-block;width: auto;'
+        }
+        %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :end_date, "退社日" %>
+    <div class="row col-sm-10">
+      <%= f.date_select :end_date,
+        {
+            use_month_numbers: true,
+            start_year: (Time.now.year - 5),
+            end_year: (Time.now.year + 5),
+            default: nil,
+            prompt: { day: '日', month: '月', year: '年'},
+            include_blank: false,
+        },
+        {
+            class: "form-control mx-2", 
+            style: 'display: inline-block;width: auto;'
+        }
+        %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="row">
+      <div class='col-xs-6 text-right'>
+        <div class='btn-group btn-add-block'>
+          <%= f.submit "登録", class: "btn btn-primary"%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

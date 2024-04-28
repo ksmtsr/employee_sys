@@ -8,7 +8,6 @@ class EmployeesController < ApplicationController
     logger.debug(@employees.inspect)
   end
   
-
   def new
     @employee = Employee.new
   end
@@ -16,12 +15,11 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
     if @employee.save 
-      redirect_to root_path
+      redirect_to root_path, notice: "登録が完了しました"
     else 
       render :new
     end
   end
-
 
   def show
     @employee = Employee.find(params[:id])
@@ -29,17 +27,28 @@ class EmployeesController < ApplicationController
     @new_document = Document.new
   end
   
+  def batch_delete
+    Employee.where(id: params[:employee_ids]).destroy_all
+    redirect_to employees_path, notice: '選択した従業員が削除されました。'
+  end
+
+  def edit
+    @employee = Employee.find(params[:id])
+  end
+
+  def update
+    @employee = Employee.find(params[:id])
+    if @employee.update(employee_params)
+      redirect_to @employee, notice: "更新しました"
+    else
+      render :edit
+    end
+  end
 
   def destroy
     @employee = Employee.find(params[:id])
     @employee.destroy
-    redirect_to root_path, notice: "削除しました"
-  end
-
-
-  def destroy_all
-    Employee.destroy_all
-    redirect_to root_path, notice: "削除しました"
+  redirect_to employees_path, notice: "削除が完了しました"
   end
 
   

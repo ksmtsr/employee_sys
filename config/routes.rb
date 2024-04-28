@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :employees do
     resources :documents, only: [:create, :destroy]
     post 'employee_documents' => 'documents#create', as: :employee_documents # ファイルのアップロード用のルートを追加
+    collection do
+      delete :batch_delete
+    end
   end
 
   delete 'delete_document/:id' => 'documents#destroy', as: :delete_document

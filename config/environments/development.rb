@@ -77,4 +77,5 @@ Rails.application.configure do
   config.console = Pry
   config.log_level = :debug
 
+
 end

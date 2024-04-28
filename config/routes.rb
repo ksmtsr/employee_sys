@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :admins
-  # , skip: [:registrations]
+ 
   root to: "employees#index"
   resources :employees do
     resources :documents, only: [:create, :destroy]

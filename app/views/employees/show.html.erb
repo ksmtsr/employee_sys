@@ -1,10 +1,10 @@
 <div class="container">
-  <h1 class="mb-4 text-secondary">従業員詳細</h1>
+  <h1 class="mb-2 text-secondary">従業員詳細</h1>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <%= link_to '従業員一覧に戻る', root_path, class: "btn btn-secondary mb-3" %>
   </div>
   <div class="row">
-    <div class="col-md-6 mb-4">
+    <div class="col-md-6 mb-3">
       <div class="card">
         <div class="card-body">
           <table class="table table-bordered table-striped">
@@ -25,8 +25,8 @@
               <td><%= @employee.age %></td>
             </tr>
             <tr>
-              <th>郵便番号</th>
-              <td><%= @employee.postal_code %> <%= @employee.address %></td>
+              <th>住所</th>
+              <td>〒<%= @employee.postal_code %> <%= @employee.address %></td>
             </tr>
             <tr>
               <th>電話番号</th>
@@ -42,6 +42,7 @@
             </tr>
           </table>
           <%= link_to "編集する", edit_employee_path, class: "btn btn-outline-info" %>
+          <%= link_to "削除", employee_path(@employee), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm" %>
         </div>
       </div>
     </div>
@@ -61,10 +62,10 @@
               <ul class="list-unstyled">
                 <% @employee.documents.each do |document| %>
                   <li>
-                    <%= document.description %>:
+                    <strong><%= document.description %>:</strong>
                     <% if document.files.attached? %>
-                      <%= link_to document.files.map(&:filename).join(', '), rails_blob_path(document.files.first), class: "text-decoration-none link-secondary" %>
-                      <%= link_to "削除", delete_document_path(document.id), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-decoration-none link-danger" %>
+                      <i class="fa-regular fa-file"></i><%= link_to document.files.map(&:filename).join(', '), rails_blob_path(document.files.first), class: "text-decoration-none link-secondary" %>
+                      <%= link_to "", delete_document_path(document.id), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-decoration-none link-danger fa-regular fa-trash-can" %>
                     <% else %>
                       <span>ファイルがありません</span>
                     <% end %>

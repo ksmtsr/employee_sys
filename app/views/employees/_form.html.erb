@@ -45,17 +45,14 @@
       <%= f.label :address, "住所" %>
       <%= f.text_field :address, class: "form-control", required: true %>
     </div>
-    <%= f.label :address,"住所" %>
-    <%= f.text_field :address, id: "address", class: "form-control", required: true %>
-  </div>
-  <div class="form-group">
-    <%= f.label :telephone_number,"電話番号" %>
-    <%= f.telephone_field :telephone_number, class: "form-control", required: true %>
-  </div>
-  <div class="form-group">
-    <%= f.label :start_date, "入社日" %>
-    <div class="row col-sm-10">
-      <%= f.date_select :start_date,
+    <div class="form-group">
+      <%= f.label :telephone_number,"電話番号" %>
+      <%= f.telephone_field :telephone_number, class: "form-control", required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :start_date, "入社日" %>
+      <div class="row col-sm-10">
+        <%= f.date_select :start_date,
         {
             use_month_numbers: true,
             start_year: (Time.now.year - 20),
@@ -69,12 +66,12 @@
             style: 'display: inline-block;width: auto;'
         }
         %>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :end_date, "退社日" %>
-    <div class="row col-sm-10">
-      <%= f.date_select :end_date,
+    <div class="form-group">
+      <%= f.label :end_date, "退社日" %>
+      <div class="row col-sm-10">
+        <%= f.date_select :end_date,
         {
             use_month_numbers: true,
             start_year: (Time.now.year - 5),
@@ -88,15 +85,15 @@
             style: 'display: inline-block;width: auto;'
         }
         %>
+      </div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <div class="row">
-      <div class='col-xs-6 text-right'>
-        <div class='btn-group btn-add-block'>
-          <%= f.submit "登録", class: "btn btn-primary"%>
+    <div class="modal-footer">
+      <div class="row">
+        <div class='col-xs-6 text-right'>
+          <div class='btn-group btn-add-block'>
+            <%= f.submit "登録", class: "btn btn-primary"%>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>

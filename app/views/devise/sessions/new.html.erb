@@ -1,9 +1,10 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
+      <h1 class="mb-3 text-secondary">労働者名簿</h1>
       <div class="card mt-5">
         <div class="card-header bg-light">
-          <h3 class="text-center">社員労働者名簿</h3>
+          <h3 class="text-center">Log in</h3>
         </div>
         <div class="card-body">
           <%= form_with model: @admin, url: admin_session_path do |f| %>
@@ -16,11 +17,12 @@
               <%= f.password_field :password, class: "form-control" %>
             </div>
             <div class="d-grid gap-2">
-              <%= f.submit "ログイン", class: "btn btn-primary btn-block" %>
+              <%= f.submit "Log in", class: "btn btn-primary btn-block" %>
             </div>
           <% end %>
         </div>
       </div>
+      <div class="mt-2 fs-4"><i class="fa-solid fa-user-plus"></i><%= link_to " Sign up", new_admin_registration_path, class: "text-decoration-none" %></div>
     </div>
   </div>
 </div>

@@ -1,9 +1,12 @@
 <div class="container d-none d-md-block">
   <div class="card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
-      <h1 class="mb-0 text-secondary">従業員名簿</h1>
+      <h1 class="mb-0 text-secondary">従業員一覧</h1>
       <div>
-        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">新規登録</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo", class="fa-solid fa-user-plus text-primary-emphasis">
+          <i class="fa-solid fa-user-plus text-primary-emphasis"></i> 新規登録
+        </button>
+        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-primary" %>
       </div>
     </div>
     <div class="card-body">
@@ -40,10 +43,13 @@
   </div>
 </div>
 <div class="container d-md-none">
-  <div class="d-flex justify-content-between align-items-center">
+  <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="mb-2 text-secondary">従業員名簿</h1>
     <div>
-      <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">新規登録</button>
+      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+        <i class="fa-solid fa-user-plus"></i> 新規登録
+      </button>
+      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-danger" %>
     </div>
   </div>
   <% @employees.each do |employee| %>
@@ -62,8 +68,7 @@
             <p>住所: <%= employee.address %></p>
             <p>入社日: <%= employee.start_date %></p>
             <p>退社日: <%= employee.end_date %></p>
-            <%= link_to "詳細", employee_path(employee), class: "text-dark" %>
-            <%= link_to "削除", employee_path(employee), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-danger" %>
+            <%= link_to "詳細", employee_path(employee), class: "btn btn-primary btn-sm" %>
           </div>
         </div>
       <% end %>

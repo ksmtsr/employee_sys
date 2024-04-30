@@ -5,7 +5,6 @@ class EmployeesController < ApplicationController
   def index
     @employee = Employee.new
     @employees = Employee.all
-    logger.debug(@employees.inspect)
   end
   
   def new
@@ -16,13 +15,16 @@ class EmployeesController < ApplicationController
     @employee = Employee.new(employee_params)
     if @employee.save 
       redirect_to root_path, notice: "従業員の登録が完了しました"
-    else 
-      render :new
+    else
+      @employees = Employee.all
+      flash.now[:alert] = "登録に失敗しました。正しい情報を入力してください。"
+      render 'employees/index'
     end
   end
 
   def show
     @employee = Employee.find(params[:id])
+    @address_display = @employee.address_display
     @documents = @employee.documents
     @new_document = Document.new
   end

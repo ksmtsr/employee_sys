@@ -26,7 +26,7 @@
             </tr>
             <tr>
               <th>住所</th>
-              <td>〒<%= @employee.postal_code %> <%= @employee.address %></td>
+              <td><%= @address_display %></td>
             </tr>
             <tr>
               <th>電話番号</th>
@@ -64,7 +64,7 @@
                   <li>
                     <strong><%= document.description %>:</strong>
                     <% if document.files.attached? %>
-                      <i class="fa-regular fa-file"></i><%= link_to document.files.map(&:filename).join(', '), rails_blob_path(document.files.first), class: "text-decoration-none link-secondary" %>
+                      <i class="fa-regular fa-file"></i> <%= link_to document.files.map(&:filename).join(', '), rails_blob_path(document.files.first), class: "text-decoration-none link-secondary" %>
                       <%= link_to "", delete_document_path(document.id), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-decoration-none link-danger fa-regular fa-trash-can" %>
                     <% else %>
                       <span>ファイルがありません</span>

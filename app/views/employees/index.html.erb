@@ -3,8 +3,8 @@
     <div class="card-header d-flex justify-content-between align-items-center">
       <h1 class="mb-0 text-secondary">従業員一覧</h1>
       <div>
-        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo", class="fa-solid fa-user-plus text-primary-emphasis">
-          <i class="fa-solid fa-user-plus text-primary-emphasis"></i> 新規登録
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+          <i class="fa-solid fa-user-plus"></i> 新規登録
         </button>
         <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-primary" %>
       </div>
@@ -27,7 +27,7 @@
             <% @employees.each do |employee| %>
               <tr>
                 <td><%= check_box_tag 'employee_ids[]', employee.id, false, class: 'form-check-input' %></td>
-                <td><%= link_to employee.full_name, employee_path(employee), class: "text-decoration-none text-dark" %></td>
+                <td><%= link_to employee.full_name, employee_path(employee), class: "text-decoration-none fw-bold text-dark" %></td>
                 <td><%= employee.birthday %></td>
                 <td><%= employee.age %></td>
                 <td><%= employee.address %></td>
@@ -44,12 +44,12 @@
 </div>
 <div class="container d-md-none">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1 class="mb-2 text-secondary">従業員名簿</h1>
+    <h1 class="mb-2 text-secondary">従業員一覧</h1>
     <div>
-      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+      <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
         <i class="fa-solid fa-user-plus"></i> 新規登録
       </button>
-      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-danger" %>
+      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-danger btn-sm" %>
     </div>
   </div>
   <% @employees.each do |employee| %>

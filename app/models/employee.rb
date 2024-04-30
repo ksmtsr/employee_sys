@@ -14,9 +14,13 @@ class Employee < ApplicationRecord
         (Date.today - birthday).to_i / 365
     end
       
-
-
     def address_display
         "〒" + postal_code + " " + address
     end
+
+    validates :first_name_kana, :last_name_kana, presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/}
+    validates :postal_code, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 9_999_999 },
+                  format: { with: /\A[0-9]+\z/ }
+
+
 end

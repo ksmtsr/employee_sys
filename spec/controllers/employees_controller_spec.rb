@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe EmployeesController, type: :controller do
+  # AdminユーザーとEmployeeのインスタンスを準備する
   let(:admin) { FactoryBot.create(:admin) }
+  let(:employee) { create(:valid_employee) }
 
+  # 各テストの前にAdminユーザーでログインする
   before do
     sign_in admin
   end
@@ -10,6 +13,7 @@ RSpec.describe EmployeesController, type: :controller do
   describe 'GET #index' do
     it '一覧ページを表示する' do
       get :index
+      # レスポンスが成功を示すステータスコードを返すことを確認
       expect(response).to be_successful
     end
   end
@@ -53,7 +57,6 @@ RSpec.describe EmployeesController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:employee) { create(:valid_employee) }
 
     it 'リクエストされた従業員を @employee に割り当てること' do
       get :show, params: { id: employee.id }
@@ -88,15 +91,12 @@ RSpec.describe EmployeesController, type: :controller do
 
   describe 'GET #edit' do
     it '指定した従業員の編集ページを表示すること' do
-      employee = FactoryBot.create(:valid_employee)
       get :edit, params: { id: employee.id }
       expect(response).to have_http_status(:success)
     end
   end
 
   describe 'PATCH #update' do
-    let(:employee) { create(:valid_employee) }
-
     context '更新が失敗した場合' do
       let(:invalid_params) { { employee: attributes_for(:invalid_employee) } }
 
@@ -109,7 +109,6 @@ RSpec.describe EmployeesController, type: :controller do
 
   describe 'DELETE #destroy' do
     it '指定した従業員が削除されること' do
-      employee = create(:valid_employee)
       delete :destroy, params: { id: employee.id }
       expect(Employee.count).to eq(0)
     end

@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :admins
- 
-  root to: "employees#index"
+  devise_for :admins, {
+  sessions: 'admin/sessions',
+  registrations: '/admins/sign_up',
+  passwords: 'admin/passwords'
+}
+
+  root to: 'employees#index'
   resources :employees do
-    resources :documents, only: [:create, :destroy]
+    resources :documents, only: [:create, :show, :destroy]
     post 'employee_documents' => 'documents#create', as: :employee_documents # ファイルのアップロード用のルートを追加
     collection do
       delete :batch_delete

@@ -44,6 +44,12 @@ group :development do
   gem 'syntax_tree-haml'
   gem 'syntax_tree-rbs'
   gem 'htmlbeautifier'
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-minitest', require: false
+  gem 'rubocop-packaging', require: false
+  gem 'rubocop-rspec'
 end
 
 group :test do
@@ -55,6 +61,7 @@ group :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -67,4 +74,7 @@ gem 'pry-byebug'
 gem 'rails_admin', '~> 3.0'
 gem 'kaminari'
 gem 'mutool', '~> 0.1.2'
+gem 'faker-japanese'
+gem 'database_cleaner'
+
 

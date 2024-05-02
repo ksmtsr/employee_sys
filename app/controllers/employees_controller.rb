@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  before_action :authenticate_admin!
 
   require 'happybirthday'
 
@@ -13,14 +14,14 @@ class EmployeesController < ApplicationController
 
   def create
     @employee = Employee.new(employee_params)
-    if @employee.save 
+    if @employee.save
       redirect_to root_path, notice: "従業員の登録が完了しました"
     else
-      @employees = Employee.all
       flash.now[:alert] = "登録に失敗しました。正しい情報を入力してください。"
-      render 'employees/index'
+      render :new  # 正しいテンプレートを指定する
     end
   end
+  
 
   def show
     @employee = Employee.find(params[:id])
@@ -48,9 +49,13 @@ end
     if @employee.update(employee_params)
       redirect_to @employee, notice: "従業員の情報を更新しました"
     else
+      flash.now[:alert] = "登録に失敗しました。正しい情報を入力してください。"
       render :edit
     end
   end
+  
+
+  
 
   def destroy
     @employee = Employee.find(params[:id])
@@ -70,6 +75,5 @@ end
   def employee_params
     params.require(:employee).permit(:first_name, :last_name, :first_name_kana, :last_name_kana, :birthday, :postal_code, :address, :telephone_number, :start_date, :end_date)
   end
-  
 
 end
